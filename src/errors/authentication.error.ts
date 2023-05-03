@@ -9,3 +9,5 @@ export const invalidated_session = `Authentication failed: this session has been
 export const unauthorized = "Authentication Failed: Login and try again";
 
 export const user_dne = `Authentication failed: This user has already been deleted or doesn't exist`;
+
+export const logout_failed = `Authentication error: Logout procedure failed due to internal server error`;

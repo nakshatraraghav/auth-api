@@ -3,11 +3,17 @@ import { sessionRequestBodyType } from "../schema/session.schema";
 
 import { comparePasswords, findUser } from "../services/user.service";
 
+import { logout_failed } from "../errors/authentication.error";
+
 import {
   invalid_email_password,
   session_creation_error,
 } from "../errors/session.errors";
-import { createSession, getSessions } from "../services/session.service";
+import {
+  createSession,
+  getSessions,
+  updateSession,
+} from "../services/session.service";
 
 import createTokens from "../utils/create-tokens";
 import sessionModel from "../models/session.model";
@@ -70,7 +76,29 @@ export async function getSessionsHandler(req: Request, res: Response) {
     });
   }
 
-  const sessions = await getSessions({ user: user.uid });
+  const sessions = await getSessions({ user: user.uid, valid: true });
 
   return res.json(sessions);
+}
+
+export async function invalidateSessionHandler(req: Request, res: Response) {
+  const user = res.locals.user;
+
+  if (!user) {
+    return res.status(401).json({
+      error: unauthorized,
+    });
+  }
+
+  const status = await updateSession(user.sid, { valid: false });
+
+  if (!status) {
+    return res.status(500).json({
+      error: logout_failed,
+    });
+  }
+
+  return res.status(200).json({
+    status: "success, logout succesfull",
+  });
 }
