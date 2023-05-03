@@ -1,15 +1,17 @@
 import { Request, Response } from "express";
 import { sessionRequestBodyType } from "../schema/session.schema";
 
-import { findUser, comparePasswords } from "../services/user.service";
+import { comparePasswords, findUser } from "../services/user.service";
 
 import {
   invalid_email_password,
   session_creation_error,
 } from "../errors/session.errors";
-import { createSession } from "../services/session.service";
+import { createSession, getSessions } from "../services/session.service";
 
 import createTokens from "../utils/create-tokens";
+import sessionModel from "../models/session.model";
+import { unauthorized } from "../errors/authentication.error";
 
 export async function createSessionHandler(
   req: Request<{}, {}, sessionRequestBodyType>,
@@ -57,4 +59,20 @@ export async function createSessionHandler(
   res.setHeader("x-refresh", tokens.refresh_token);
 
   return res.status(200).json(tokens);
+}
+
+export async function getSessionsHandler(req: Request, res: Response) {
+  const user = res.locals.user;
+
+  if (!user) {
+    return res.status(401).json({
+      error: unauthorized,
+    });
+  }
+
+  const sessions = await sessionModel.find({
+    user: user.uid,
+  });
+
+  return res.json(sessions);
 }

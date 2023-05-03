@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import sessionModel from "../models/session.model";
+import mongoose, { FilterQuery } from "mongoose";
+import sessionModel, { sessionDocument } from "../models/session.model";
 
 export async function createSession(
   user_id: mongoose.Types.ObjectId,
@@ -16,4 +16,8 @@ export async function createSession(
     console.log(error);
     return false;
   }
+}
+
+export async function getSessions(query: FilterQuery<sessionDocument>) {
+  return await sessionModel.findOne(query);
 }
