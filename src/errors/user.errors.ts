@@ -24,4 +24,9 @@ const password_errors = {
     "ERROR(Invalid Length): Password cannot be longer than 30 Characters",
 };
 
+export const error_response = {
+  email_clash:
+    "ERROR(KEY CLASH): A user with this email already exists, try with another email address",
+};
+
 export { name_errors, email_errors, password_errors };
