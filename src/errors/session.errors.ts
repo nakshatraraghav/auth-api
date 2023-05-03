@@ -17,4 +17,10 @@ const password_errors = {
     "ERROR(Invalid Length): Password cannot be longer than 30 Characters",
 };
 
+export const invalid_email_password =
+  "Authentication failed. Your email or password is incorrect. Please double-check and try again";
+
+export const session_creation_error =
+  "Authentication failed. Internal server error while logging in, Please try again later";
+
 export { email_errors, password_errors };

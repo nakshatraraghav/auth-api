@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-interface sessionDocument {
+export interface sessionDocument {
   user: mongoose.Types.ObjectId;
   valid: boolean;
   userAgent: string;
