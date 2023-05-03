@@ -33,4 +33,8 @@ const discount_errors = {
     "ERROR(Invalid Price): Product discount should be greater than 0% ",
 };
 
+export const find_product_errors = {
+  missing_id: `ERROR(Missing ID): Enter the Product ID`,
+};
+
 export { description_errors, discount_errors, price_errors, title_errors };
