@@ -70,9 +70,7 @@ export async function getSessionsHandler(req: Request, res: Response) {
     });
   }
 
-  const sessions = await sessionModel.find({
-    user: user.uid,
-  });
+  const sessions = await getSessions({ user: user.uid });
 
   return res.json(sessions);
 }

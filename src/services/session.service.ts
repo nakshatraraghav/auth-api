@@ -19,5 +19,5 @@ export async function createSession(
 }
 
 export async function getSessions(query: FilterQuery<sessionDocument>) {
-  return await sessionModel.findOne(query);
+  return await sessionModel.find(query);
 }
