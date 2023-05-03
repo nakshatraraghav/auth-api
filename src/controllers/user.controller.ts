@@ -13,7 +13,9 @@ export async function createUserHandler(
     return res.status(201).json(user);
   } catch (error: any) {
     if (error.code === 11000 && error.keyPattern.email) {
-      return res.status(409).send(error_response.email_clash);
+      return res
+        .status(409)
+        .json({ number_of_errors: 1, error: error_response.email_clash });
     }
 
     return res.json(error.message);
